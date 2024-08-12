@@ -34,15 +34,15 @@ params = {
     'device_platform': 'webapp',
     'aid': '6383',
     'channel': 'channel_pc_web',
-    'sec_user_id': 'MS4wLjABAAAAP93mq7F_stQPqPsT7oTAi-nohBvB_6AYB6WkIv-Xw5Y',
-    'max_cursor': '0',
+    'sec_user_id': 'MS4wLjABAAAAQR4WK9JBK9HPic72xsYWettM23c9_fRFjXS_4xmMKMk',
+    'max_cursor': '1707307867000',
     'locate_query': 'false',
     'show_live_replay_strategy': '1',
     'need_time_list': '1',
     'time_list_query': '0',
     'whale_cut_token': '',
     'cut_version': '1',
-    'count': '41',
+    'count': '20',
     'publish_video_strategy_type': '2',
     'update_version_code': '170400',
     'pc_client_type': '1',
@@ -80,7 +80,7 @@ a_bogus = execjs.compile(open('douyin.js', encoding='utf-8').read()).call('get_a
 params['a_bogus'] = a_bogus
 response = requests.get('https://www.douyin.com/aweme/v1/web/aweme/post/', params=params, headers=headers)
 res_data = json.loads(response.text)
-print(res_data)
+# print(res_data)
 # 第一次请求获取到全部视频时间列表
 # time_list = res_data['time_list']
 # time_ms_list = []
@@ -94,3 +94,4 @@ aweme_data = res_data['aweme_list']
 for aweme in aweme_data:
     res_data_list.append(aweme)
     print(aweme)
+print(len(res_data_list))

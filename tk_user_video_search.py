@@ -38,14 +38,14 @@ class Search:
             'aid': '6383',
             'channel': 'channel_pc_web',
             'sec_user_id': f'{sec_uid}',
-            'max_cursor': '0',
+            'max_cursor': f'{timestamp}',
             'locate_query': 'false',
             'show_live_replay_strategy': '1',
             'need_time_list': '1',
             'time_list_query': '0',
             'whale_cut_token': '',
             'cut_version': '1',
-            'count': '41',
+            'count': '20',
             'publish_video_strategy_type': '2',
             'update_version_code': '170400',
             'pc_client_type': '1',
@@ -78,10 +78,9 @@ class Search:
         a_bogus = execjs.compile(open('douyin.js', encoding='utf-8').read()).call('get_a_bogus', params_str)
         params['a_bogus'] = a_bogus
         response = requests.get('https://www.douyin.com/aweme/v1/web/aweme/post/', params=params, headers=self.headers)
-        time.sleep(random.randint(3, 5))
         try:
-            res = response.json()
-            res_data_list = res['user_list']
+            res = json.loads(response.text)
+            res_data_list = res['aweme_list']
             for res_data in res_data_list:
                 ret_data_list.append(res_data)
         except Exception as e:
@@ -89,16 +88,16 @@ class Search:
 
         return ret_data_list
 
-    def run(self, key_worlds):
+    def run(self, key_worlds, timestamp):
         """关键词, 页码"""
-        data = self.main(key_worlds)
+        data = self.main(key_worlds, timestamp)
         ret_data = {"data": data}
         return ret_data
 
 
 if __name__ == '__main__':
     a = Search()
-    b = a.run("小兜宝")
+    b = a.run("MS4wLjABAAAAQR4WK9JBK9HPic72xsYWettM23c9_fRFjXS_4xmMKMk",  1707307867000)
     for i in b['data']:
         print(i)
     print(len(b['data']))
